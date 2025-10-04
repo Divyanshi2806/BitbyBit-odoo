@@ -57,9 +57,19 @@
 			<h1>Sign in</h1>
 			<span>Use your account</span>
 			<input type="email" placeholder="Email" />
-
 			<input type="password" placeholder="Password" />
+      <div class="inline-dropdown">
+      <label for="signin-role">Role:</label>
+       <select id="signin-role" name="role">
+        <option value="">--Select Role--</option>
+        <option value="admin">Admin</option>
+        <option value="manager">Manager</option>
+        <option value="employee">Employee</option>
+      </select>
+      </div>
 			<a href="#">Forgot your password?</a>
+      <!-- ✅ Role Dropdown (Corrected placement) -->
+    
 			<button>Sign In</button>
 		</form>
 	</div>

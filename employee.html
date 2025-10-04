@@ -3,9 +3,575 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Employee Dashboard - ExpenseFlow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="employee.css">
 </head>
 <body>
-    <H1>Employee Page</H1>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo">ExpenseFlow</a>
+            <div class="user-menu">
+                <div class="user-avatar">JD</div>
+                <div>
+                    <div>John Doe</div>
+                    <div class="user-role">Employee</div>
+                </div>
+                <a href="#" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link active">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">
+                            <i class="fas fa-receipt"></i>
+                            <span>My Expenses</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Submit Expense</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">
+                            <i class="fas fa-history"></i>
+                            <span>Expense History</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1 class="page-title">Employee Dashboard</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" id="submit-expense-btn">
+                            <i class="fas fa-plus"></i> Submit New Expense
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dashboard Cards -->
+                <div class="dashboard-cards">
+                    <div class="card dashboard-card">
+                        <div class="dashboard-card-icon primary">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <div class="dashboard-card-value">$2,450</div>
+                        <div class="dashboard-card-label">Total Expenses This Month</div>
+                    </div>
+                    
+                    <div class="card dashboard-card">
+                        <div class="dashboard-card-icon warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="dashboard-card-value">5</div>
+                        <div class="dashboard-card-label">Pending Approval</div>
+                    </div>
+                    
+                    <div class="card dashboard-card">
+                        <div class="dashboard-card-icon success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="dashboard-card-value">$1,850</div>
+                        <div class="dashboard-card-label">Approved This Month</div>
+                    </div>
+                    
+                    <div class="card dashboard-card">
+                        <div class="dashboard-card-icon danger">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="dashboard-card-value">$120</div>
+                        <div class="dashboard-card-label">Rejected This Month</div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active" data-tab="recent">Recent Expenses</div>
+                    <div class="tab" data-tab="pending">Pending Approval</div>
+                    <div class="tab" data-tab="history">Expense History</div>
+                </div>
+
+                <!-- Recent Expenses Tab Content -->
+                <div class="tab-content active" id="tab-recent">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Recent Expenses</h2>
+                            <div class="header-actions">
+                                <button class="btn btn-light" id="filter-recent-btn">
+                                    <i class="fas fa-filter"></i> Filter
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-expenses-list">
+                                    <tr>
+                                        <td>2025-09-28</td>
+                                        <td>Client Dinner Meeting</td>
+                                        <td>Meals & Entertainment</td>
+                                        <td>$125.50</td>
+                                        <td>
+                                            <span class="badge badge-pending">Pending</span>
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-light btn-sm view-expense-btn" data-id="1">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-light btn-sm edit-expense-btn" data-id="1">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-09-26</td>
+                                        <td>Flight to Conference</td>
+                                        <td>Travel</td>
+                                        <td>$450.00</td>
+                                        <td>
+                                            <span class="badge badge-approved">Approved</span>
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-light btn-sm view-expense-btn" data-id="2">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-light btn-sm">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-09-25</td>
+                                        <td>Office Supplies</td>
+                                        <td>Office Expenses</td>
+                                        <td>$85.25</td>
+                                        <td>
+                                            <span class="badge badge-rejected">Rejected</span>
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-light btn-sm view-expense-btn" data-id="3">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-light btn-sm edit-expense-btn" data-id="3">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Approval Tab Content -->
+                <div class="tab-content" id="tab-pending">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Pending Approval</h2>
+                            <div class="header-actions">
+                                <button class="btn btn-light" id="refresh-pending-btn">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Amount</th>
+                                        <th>Submitted</th>
+                                        <th>Current Approver</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pending-expenses-list">
+                                    <tr>
+                                        <td>2025-09-28</td>
+                                        <td>Client Dinner Meeting</td>
+                                        <td>Meals & Entertainment</td>
+                                        <td>$125.50</td>
+                                        <td>2025-09-29</td>
+                                        <td>Sarah Johnson (Manager)</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-light btn-sm view-expense-btn" data-id="1">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-light btn-sm edit-expense-btn" data-id="1">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm withdraw-expense-btn" data-id="1">
+                                                    <i class="fas fa-times"></i> Withdraw
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-09-27</td>
+                                        <td>Team Lunch</td>
+                                        <td>Meals & Entertainment</td>
+                                        <td>$75.30</td>
+                                        <td>2025-09-28</td>
+                                        <td>Sarah Johnson (Manager)</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-light btn-sm view-expense-btn" data-id="4">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-light btn-sm edit-expense-btn" data-id="4">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm withdraw-expense-btn" data-id="4">
+                                                    <i class="fas fa-times"></i> Withdraw
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expense History Tab Content -->
+                <div class="tab-content" id="tab-history">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Expense History</h2>
+                            <div class="header-actions">
+                                <button class="btn btn-light" id="export-history-btn">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                                <button class="btn btn-primary" id="filter-history-btn">
+                                    <i class="fas fa-filter"></i> Filter by Date
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Approved/Rejected Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-expenses-list">
+                                    <tr>
+                                        <td>2025-09-26</td>
+                                        <td>Flight to Conference</td>
+                                        <td>Travel</td>
+                                        <td>$450.00</td>
+                                        <td>
+                                            <span class="badge badge-approved">Approved</span>
+                                        </td>
+                                        <td>2025-09-27</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-light btn-sm view-expense-btn" data-id="2">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-light btn-sm">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-09-25</td>
+                                        <td>Office Supplies</td>
+                                        <td>Office Expenses</td>
+                                        <td>$85.25</td>
+                                        <td>
+                                            <span class="badge badge-rejected">Rejected</span>
+                                        </td>
+                                        <td>2025-09-26</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-light btn-sm view-expense-btn" data-id="3">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-light btn-sm edit-expense-btn" data-id="3">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-09-20</td>
+                                        <td>Hotel Accommodation</td>
+                                        <td>Travel</td>
+                                        <td>$320.00</td>
+                                        <td>
+                                            <span class="badge badge-approved">Approved</span>
+                                        </td>
+                                        <td>2025-09-21</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-light btn-sm view-expense-btn" data-id="5">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-light btn-sm">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Submit Expense Modal -->
+    <div class="modal" id="submit-expense-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Submit New Expense</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="expense-form">
+                    <div class="form-group">
+                        <label class="form-label" for="expense-amount">Amount</label>
+                        <div class="amount-input-group">
+                            <select class="form-control currency-select" id="expense-currency">
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                                <option value="CAD">CAD</option>
+                                <option value="AUD">AUD</option>
+                                <option value="INR">INR</option>
+                            </select>
+                            <input type="number" class="form-control amount-input" id="expense-amount" placeholder="0.00" step="0.01" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="expense-category">Category</label>
+                        <select class="form-control" id="expense-category" required>
+                            <option value="">Select Category</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Meals">Meals & Entertainment</option>
+                            <option value="Accommodation">Accommodation</option>
+                            <option value="Office Supplies">Office Supplies</option>
+                            <option value="Software">Software</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="expense-date">Date</label>
+                        <input type="date" class="form-control" id="expense-date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="expense-description">Description</label>
+                        <textarea class="form-control" id="expense-description" rows="3" placeholder="Enter expense description" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Receipt Upload (OCR)</label>
+                        <div class="ocr-upload-area" id="ocr-upload-area">
+                            <div class="ocr-upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <p>Drag & drop receipt image or click to browse</p>
+                            <p class="upload-hint">Supports JPG, PNG, PDF (Max 5MB)</p>
+                            <input type="file" id="receipt-file" accept="image/*,.pdf" class="file-input">
+                        </div>
+                        <div id="ocr-results" class="ocr-results">
+                            <h4>Extracted Information:</h4>
+                            <div id="extracted-data" class="extracted-data"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light close-modal">Cancel</button>
+                <button class="btn btn-primary" id="save-expense-btn">Submit Expense</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Expense Detail Modal -->
+    <div class="modal" id="expense-detail-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Expense Details</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="expense-details">
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <div class="detail-label">Description</div>
+                            <div class="detail-value" id="detail-description">Client Dinner Meeting</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Amount</div>
+                            <div class="detail-value" id="detail-amount">$125.50</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Category</div>
+                            <div class="detail-value" id="detail-category">Meals & Entertainment</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Date</div>
+                            <div class="detail-value" id="detail-date">September 28, 2025</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Status</div>
+                            <div class="detail-value" id="detail-status">
+                                <span class="badge badge-pending">Pending</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Submitted</div>
+                            <div class="detail-value" id="detail-submitted">September 29, 2025</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-label">Receipt</div>
+                        <div>
+                            <a href="#" class="btn btn-light btn-sm" id="view-receipt-btn">
+                                <i class="fas fa-receipt"></i> View Receipt
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-label">Notes</div>
+                        <div class="detail-notes" id="detail-notes">Business dinner with potential client from ABC Corp to discuss partnership opportunities.</div>
+                    </div>
+                    
+                    <div class="form-group" id="approval-timeline-section">
+                        <div class="form-label">Approval Timeline</div>
+                        <div class="timeline" id="approval-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">2025-09-29</div>
+                                <div class="timeline-content">Expense submitted for approval</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">2025-09-29</div>
+                                <div class="timeline-content">Forwarded to Sarah Johnson (Manager) for review</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light close-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Expense Modal -->
+    <div class="modal" id="edit-expense-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Expense</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-expense-form">
+                    <div class="form-group">
+                        <label class="form-label" for="edit-expense-amount">Amount</label>
+                        <div class="amount-input-group">
+                            <select class="form-control currency-select" id="edit-expense-currency">
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                                <option value="CAD">CAD</option>
+                                <option value="AUD">AUD</option>
+                                <option value="INR">INR</option>
+                            </select>
+                            <input type="number" class="form-control amount-input" id="edit-expense-amount" placeholder="0.00" step="0.01" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="edit-expense-category">Category</label>
+                        <select class="form-control" id="edit-expense-category" required>
+                            <option value="">Select Category</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Meals">Meals & Entertainment</option>
+                            <option value="Accommodation">Accommodation</option>
+                            <option value="Office Supplies">Office Supplies</option>
+                            <option value="Software">Software</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="edit-expense-date">Date</label>
+                        <input type="date" class="form-control" id="edit-expense-date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="edit-expense-description">Description</label>
+                        <textarea class="form-control" id="edit-expense-description" rows="3" placeholder="Enter expense description" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light close-modal">Cancel</button>
+                <button class="btn btn-primary" id="update-expense-btn">Update Expense</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="employee.js"></script>
 </body>
 </html>

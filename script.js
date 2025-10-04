@@ -1,4 +1,5 @@
-// Panel switch buttons
+ 
+// My js file
 const overlaysignin = document.getElementById('signin');
 const overlaysignup = document.getElementById('overlaysignup');
 const container = document.getElementById('container');
@@ -57,6 +58,48 @@ formsignup.addEventListener('click', () => {
             alert(error.message);
         });
 });
+
+document.querySelector('.sign-in-container form').addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const email = document.querySelector('.sign-in-container input[placeholder="Email"]').value;
+  const password = document.querySelector('.sign-in-container input[placeholder="Password"]').value;
+  const role = document.getElementById('signin-role').value;
+
+  if (!email || !password || !role) {
+    alert("Please fill all fields.");
+    return;
+  }
+
+  auth.signInWithEmailAndPassword(email, password)
+    .then(async (userCredential) => {
+      const user = userCredential.user;
+      const doc = await db.collection('users').doc(user.uid).get();
+
+      if (doc.exists) {
+        const savedRole = doc.data().role;
+
+        if (savedRole === role) {
+          if (savedRole === "admin") {
+            window.location.href = "admin.html";
+          } else if (savedRole === "manager") {
+            window.location.href = "manager.html";
+          } else if (savedRole === "employee") {
+            window.location.href = "employee.html";
+          }
+        } else {
+          alert("Incorrect role selected!");
+        }
+      } else {
+        alert("User data not found!");
+      }
+    })
+    .catch((error) => {
+      console.error("Signin error:", error);
+      alert(error.message);
+    });
+});
+
 // Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAwO_m2MDgUjJHeAytlZD67rabu2eyMkhk",
